@@ -1,8 +1,8 @@
 <?php
-// Initialize the session
+//oturumu başlat
 session_start();
  
-// Check if the user is logged in, if not then redirect him to login page
+//Kullanıcının giriş yapmış olup olmadığını kontrol et, eğer evet ise, onu tekrar hoşgeldiniz sayfasına yönlendir
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
