@@ -18,14 +18,14 @@ $username_err = $password_err = "";
 //form verileri gönderildiği zaman çalıştırılıyor
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Check if username is empty
+    // username boş mu diye kontrol ediliyor
     if(empty(trim($_POST["username"]))){
         $username_err = "Lütfen kullanıcı adı giriniz.";
     } else{
         $username = trim($_POST["username"]);
     }
     
-    // Check if password is empty
+    // password boş mu diye kontrol ediliyor
     if(empty(trim($_POST["password"]))){
         $password_err = "Lütfen şifrenizi giriniz.";
     } else{
@@ -34,17 +34,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     //doğrulama 
     if(empty($username_err) && empty($password_err)){
-        // Prepare a select statement
+        // users tablosunu seçiyor username eşit çıkarsa verileri seçiyor
         $sql = "SELECT id, username, password FROM users WHERE username = :username";
         
         if($stmt = $pdo->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
+            // hazırlanan ifadeye değer atanıyor
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
             
-            // Set parameters
+            // param_username tanımlanıyor
             $param_username = trim($_POST["username"]);
             
-            // Attempt to execute the prepared statement
+            // sorgu çalışıyor mu diye kontrol var
             if($stmt->execute()){
                 //şifre doğru ise yeni oturum başlat
                 if($stmt->rowCount() == 1){
